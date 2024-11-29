@@ -13,8 +13,8 @@ const Deck = () => {
     const deck = createDeck()
     const shuffledDeck = shuffleArray(deck)
 
-    const playerCards = shuffledDeck.slice(0, 1)
-    const computerCards = shuffledDeck.slice(1, 2)
+    const playerCards = shuffledDeck.slice(0, 26)
+    const computerCards = shuffledDeck.slice(26)
 
     setPlayerCards(playerCards)
     setComputerCards(computerCards)

@@ -25,6 +25,47 @@ const Deck = () => {
     setWinner("")
   }
 
+  const handleBataille = () => {
+    if (playerCards.length === 0 || computerCards.length === 0) {
+      return
+    }
+    const playerCard1 = playerCards[playerCards.length - 1]
+    const playerCard2 = playerCards[playerCards.length - 2]
+    const computerCard1 = computerCards[computerCards.length - 1]
+    const computerCard2 = computerCards[computerCards.length - 2]
+
+    setPlayedCards((prev) => [
+      ...prev,
+      playerCard1,
+      playerCard2,
+      computerCard1,
+      computerCard2,
+    ])
+
+    setPlayerCards((prev) => prev.slice(0, prev.length - 2))
+    setComputerCards((prev) => prev.slice(0, prev.length - 2))
+
+    const newPlayerCard = playerCards[playerCards.length - 1]
+    const newComputerCard = computerCards[computerCards.length - 1]
+
+    setPlayedCards((prev) => [...prev, newPlayerCard, newComputerCard])
+
+    compareCards(newPlayerCard, newComputerCard)
+
+    const playerRank = ranks.indexOf(newPlayerCard.rank)
+    const computerRank = ranks.indexOf(newComputerCard.rank)
+
+    if (playerRank > computerRank) {
+    setPlayerCards((prev) => [
+      newPlayerCard,
+      newComputerCard,
+      ...playedCards,
+      ...prev,
+    ]);
+    setPlayedCards([]);
+    
+  }
+
   const handlePlayCard = () => {
     if (playerCards.length === 0 || computerCards.length === 0) {
       return
@@ -55,7 +96,7 @@ const Deck = () => {
         ])
         setPlayerCards((prev) => prev.slice(0, prev.length - 1))
       } else {
-        console.log("BATAILLE")
+        handleBataille()
       }
     }
 
